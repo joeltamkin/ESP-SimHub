@@ -44,7 +44,7 @@ FullLoopbackStream incomingStream;
 //#define INCLUDE_MAX7221_MODULES             //{"Name":"INCLUDE_MAX7221_MODULES","Type":"autodefine","Condition":"[MAX7221_ENABLEDMODULES]>0"}
 //#define INCLUDE_SHAKEITPWMFANS              //{"Name":"INCLUDE_SHAKEITPWMFANS","Type":"autodefine","Condition":"[SHAKEITPWMFANS_ENABLED_MOTORS]>0"}
 //#define INCLUDE_SHAKEITPWM                  //{"Name":"INCLUDE_SHAKEITPWM","Type":"autodefine","Condition":"[SHAKEITPWM_ENABLED_MOTORS]>0"}
-//#define INCLUDE_TACHOMETER                  //{"Name":"INCLUDE_TACHOMETER ","Type":"autodefine","Condition":"[ENABLE_TACHOMETER]>0"}
+#define INCLUDE_TACHOMETER                  //{"Name":"INCLUDE_TACHOMETER ","Type":"autodefine","Condition":"[ENABLE_TACHOMETER]>0"}
 //#define INCLUDE_SPEEDOGAUGE                 //{"Name":"INCLUDE_SPEEDOGAUGE","Type":"autodefine","Condition":"[ENABLE_SPEEDOGAUGE]>0"}
 //#define INCLUDE_BOOSTGAUGE                  //{"Name":"INCLUDE_BOOSTGAUGE ","Type":"autodefine","Condition":"[ENABLE_BOOSTGAUGE]>0"}
 //#define INCLUDE_FUELGAUGE                   //{"Name":"INCLUDE_FUELGAUGE ","Type":"autodefine","Condition":"[ENABLE_FUELGAUGE]>0"}
@@ -224,7 +224,7 @@ SHMAX72217Segment shMAX72217Segment;
 // MAX7219 / MAX7221 Led Matrix module -----------------------------------------------------------------------------
 // http://www.dx.com/p/max7219-dot-matrix-module-w-5-dupont-lines-184854
 // -------------------------------------------------------------------------------------------------------
-#define MAX7221_MATRIX_ENABLED 0 //{"Group":"MAX7221 Led Matrix","Name":"MAX7221_MATRIX_ENABLED","Title":"MAX7221 led matrix enabled ","DefaultValue":"0","Type":"bool"}
+#define MAX7221_MATRIX_ENABLED 1 //{"Group":"MAX7221 Led Matrix","Name":"MAX7221_MATRIX_ENABLED","Title":"MAX7221 led matrix enabled ","DefaultValue":"0","Type":"bool"}
 #ifdef INCLUDE_MAX7221MATRIX
 #include "SHMatrixMAX7219.h"
 // USING HARDWARE SPI BY DEFAULT (MOSI, SCK, SS)
@@ -444,7 +444,7 @@ byte ADA_HT16K33_Matrix_luminosity = 0;
 #ifdef INCLUDE_TACHOMETER
 #include "SHTonePin.h"
 #define ENABLE_TACHOMETER 1 //{"Group":"Tachometer","Name":"ENABLE_TACHOMETER","Title":"After market tachometer enabled\r\nSee wiki for wiring instructions","DefaultValue":"0","Type":"bool"}
-#define TACHOMETER_PIN 8    //{"Name":"TACHOMETER_PIN","Title":"Tachometer signal pin","DefaultValue":"9","Type":"pin;Tachometer signal","Condition":"ENABLE_TACHOMETER > 0 "}
+#define TACHOMETER_PIN 1    //{"Name":"TACHOMETER_PIN","Title":"Tachometer signal pin","DefaultValue":"9","Type":"pin;Tachometer signal","Condition":"ENABLE_TACHOMETER > 0 "}
 SHTonePin rpmTonePin;
 #endif
 

@@ -15,6 +15,8 @@ private:
 #ifdef ESP32
 	ledc_components output;
 	char resolution = 14;
+	char minFreq = 5;
+	
 #endif
 public:
 	void begin(int pin) {
@@ -22,11 +24,12 @@ public:
 		ledc_components* components = new ledc_components[1];
 		components[0].pin = pin;
 		// we should never set the frequency to 0, because that breaks ledc, instead, we set duty cycle to 0 to disable an output
-		createPwmForFrequencyControl(components, 1, 100, resolution, pow(2, resolution) / 2);
+		createPwmForFrequencyControl(components, 1, minFreq, resolution, pow(2, resolution) / 2);
 		output = components[0];
 		auto speedMode = output.channel.speed_mode;
 		auto channel = output.channel.channel;
-		ledc_set_duty(speedMode, channel, 0);
+		auto timer = output.timer.timer_num;
+		ledc_set_freq(speedMode, timer, minFreq);
 		#endif
 		#ifdef ESP8266
 		this->pin = pin;
@@ -45,12 +48,18 @@ public:
 		auto timer = components.timer.timer_num;
 		auto channel = components.channel.channel;
 		if (freq < 1) {
-			ledc_set_duty(speedMode, channel, 0);
+		ledc_set_freq(speedMode, timer, minFreq);
 		} else {
 			ledc_set_freq(speedMode, timer, freq);
 			ledc_set_duty(speedMode, channel, pow(2, resolution) / 2);
 		}
 		int freqRes = ledc_get_freq(speedMode, timer);
+		String full = "";
+		full = "asked for: " + String(freq);
+		FlowSerialDebugPrintLn(full);
+		full = "got: " + String(freqRes);
+		FlowSerialDebugPrintLn(full);
+
 		#endif
 		#ifdef ESP8266
 		if (freq < 1) {

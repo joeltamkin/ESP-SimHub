@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+#define IGN_PIN 5
+
 class SHCustomProtocol {
 private:
 
@@ -33,6 +35,7 @@ public:
 
 	// Called when starting the arduino (setup method in main sketch)
 	void setup() {
+		pinMode(IGN_PIN, OUTPUT);
 	}
 
 	// Called when new data is coming from computer
@@ -41,9 +44,9 @@ public:
 		// EXAMPLE 1 - read the whole message and sent it back to simhub as debug message
 		// Protocol formula can be set in simhub to anything, it will just echo it
 		// -------------------------------------------------------
-		String message = FlowSerialReadStringUntil('\n'); 
-		full = "Message received : " + message;
-		FlowSerialDebugPrintLn(full);
+		// String message = FlowSerialReadStringUntil('\n'); 
+		// full = "Message received : " + message;
+		// FlowSerialDebugPrintLn(full);
 
 		/*
 		// -------------------------------------------------------
@@ -53,14 +56,20 @@ public:
 		// -------------------------------------------------------
 		*/
 
-		int speed = FlowSerialReadStringUntil(';').toInt();
-		String gear = FlowSerialReadStringUntil('\n');
+		int ignitionOn = FlowSerialReadStringUntil(';').toInt();
+		digitalWrite(IGN_PIN, ignitionOn > 0 ? LOW : HIGH);
+		// full = "ignition: " + String(ignitionOn);
+		// FlowSerialDebugPrintLn(full);
+		
+		
+		
+		// String gear = FlowSerialReadStringUntil('\n');
 
-		full = "Speed : " + String(speed);
-		FlowSerialDebugPrintLn(full);
+		// full = "Speed : " + String(speed);
+		// FlowSerialDebugPrintLn(full);
 
-		full = "Gear : " + gear;
-		FlowSerialDebugPrintLn(full);
+		// full = "Gear : " + gear;
+		// FlowSerialDebugPrintLn(full);
 	}
 
 	// Called once per arduino loop, timing can't be predicted, 
