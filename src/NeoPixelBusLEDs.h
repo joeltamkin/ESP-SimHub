@@ -12,7 +12,7 @@
  * 
  ************************** */
 
-#define LED_COUNT 24
+#define LED_COUNT 20
 #define RIGHTTOLEFT 0
 #define TEST_MODE 1
 
@@ -78,11 +78,11 @@
 // Uses a lot of CPU, and interrupts such as the ones ran for WiFi make it unstable.
 // Supports all pins below GPIO32
 //******
-//#define method NeoEsp32BitBangWs2812xMethod
+#define method NeoEsp32BitBangWs2812xMethod
 
 
 // Pick your GPIO pin based on the limitations of the selected method above
-#define DATA_PIN 8
+#define DATA_PIN 1
 
 #else
 
